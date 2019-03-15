@@ -1,0 +1,51 @@
+{
+  "name": "welding-heat-input-app",
+  "version": "1.0.0",
+  "description": "Really simple welding heat input calculator app, written in React Native",
+  "author": {
+    "name": "Antoni Kepinski",
+    "email": "a@kepinski.me",
+    "url": "https://kepinski.me"
+  },
+  "license": "MIT",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo build:android",
+    "eject": "expo eject",
+    "test": "xo"
+  },
+  "dependencies": {
+    "expo": "^32.0.6",
+    "formik": "^1.5.1",
+    "mathjs": "^5.7.0",
+    "react": "16.5.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-ui-kitten": "^3.1.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "babel-preset-expo": "^5.0.0",
+    "eslint-config-xo-react": "^0.19.0",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.5.1",
+    "xo": "^0.24.0"
+  },
+  "xo": {
+    "nodeVersion": ">=10",
+    "parser": "babel-eslint",
+    "envs": [
+      "node",
+      "browser"
+    ],
+    "extends": "xo-react",
+    "settings": {
+      "react": {
+        "version": "16.5"
+      }
+    },
+    "rules": {
+      "unicorn/filename-case": 0
+    }
+  }
+}
