@@ -10,7 +10,7 @@ Currently, only the Android version is available.
 
 or
 
-[Latest Release](https://github.com/xxczaki/welding-heat-input-calculator/releases/latest)
+[Download latest release](https://github.com/xxczaki/welding-heat-input-calculator/releases/latest)
 
 ## Usage
 
