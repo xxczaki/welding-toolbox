@@ -6,7 +6,7 @@
 
 Currently, only the Android version is available.
 
-[google play pending]
+[![Google Play Download][google-play-badge]][google-play-download]
 
 or
 
@@ -32,3 +32,6 @@ $ npm run android
 ### License
 
 MIT
+
+[google-play-badge]: https://play.google.com/intl/en_us/badges/images/badge_new.png
+[google-play-download]: https://play.google.com/store/apps/details?id=com.kepinski.weldingheatinputcalculator
