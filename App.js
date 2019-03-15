@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet, View, ScrollView, Keyboard} from 'react-native';
 import {RkButton, RkText, RkTextInput} from 'react-native-ui-kitten';
 import {Formik} from 'formik';
-import math from 'mathjs';
 
 export default class extends React.Component {
 	constructor(props) {
@@ -23,12 +22,17 @@ export default class extends React.Component {
 				}}
 				onSubmit={values => {
 					Keyboard.dismiss();
-					const amps = parseInt(values.amps, 10);
-					const volts = parseInt(values.volts, 10);
-					const weldingSpeed = parseInt(values.weldingSpeed, 10);
-					const efficiencyFactor = parseFloat(values.efficiencyFactor.replace(/,/g, '.'));
 
-					const equation = math.round(math.chain(amps).multiply(volts).multiply(efficiencyFactor / 10).divide(weldingSpeed).done(), 5);
+					const evaluate = () => {
+						const amps = parseInt(values.amps, 10);
+						const volts = parseInt(values.volts, 10);
+						const weldingSpeed = parseInt(values.weldingSpeed, 10);
+						const efficiencyFactor = parseFloat(values.efficiencyFactor.replace(/,/g, '.'));
+
+						return (amps * volts * (efficiencyFactor / 10) / weldingSpeed);
+					};
+
+					const equation = Math.round(evaluate() * 100) / 100;
 
 					if (isNaN(equation)) {
 						this.setState({heatInput: ''});
@@ -42,22 +46,28 @@ export default class extends React.Component {
 			>
 				{props => (
 					<ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} scrollEnabled={false} keyboardShouldPersistTaps="handled">
-						<RkTextInput
-							keyboardType="numeric"
-							placeholder="Amps"
-							value={props.values.amps}
-							maxLength={10}
-							onChangeText={props.handleChange('amps')}
-							onBlur={props.handleBlur('amps')}
-						/>
-						<RkTextInput
-							keyboardType="numeric"
-							placeholder="Volts"
-							value={props.values.volts}
-							maxLength={10}
-							onChangeText={props.handleChange('volts')}
-							onBlur={props.handleBlur('volts')}
-						/>
+						<RkText style={styles.title}>Heat Input Calculator</RkText>
+						<RkText style={styles.result}>Heat Input: {this.state.heatInput} kJ/mm</RkText>
+						<View style={styles.inputs}>
+							<RkTextInput
+								style={{marginRight: 10}}
+								keyboardType="numeric"
+								placeholder="Amps"
+								value={props.values.amps}
+								maxLength={10}
+								onChangeText={props.handleChange('amps')}
+								onBlur={props.handleBlur('amps')}
+							/>
+							<RkTextInput
+								style={{marginLeft: 10}}
+								keyboardType="numeric"
+								placeholder="Volts"
+								value={props.values.volts}
+								maxLength={10}
+								onChangeText={props.handleChange('volts')}
+								onBlur={props.handleBlur('volts')}
+							/>
+						</View>
 						<RkTextInput
 							keyboardType="numeric"
 							placeholder="Welding Speed (mm/min)"
@@ -78,7 +88,6 @@ export default class extends React.Component {
 							<RkButton style={styles.button} onPress={props.handleSubmit}>Calculate</RkButton>
 							<RkButton rkType="danger" onPress={props.handleReset}>Reset</RkButton>
 						</View>
-						<RkText style={styles.result}>Heat Input: {this.state.heatInput} kJ/mm</RkText>
 					</ScrollView>
 				)}
 			</Formik>
@@ -99,16 +108,28 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
+	title: {
+		fontSize: 25,
+		fontWeight: 'bold',
+		marginBottom: 20
+	},
+	inputs: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '50%',
+		marginTop: 20
+	},
 	inline: {
 		flexWrap: 'wrap',
 		alignItems: 'flex-start',
-		flexDirection: 'row'
+		flexDirection: 'row',
+		marginTop: 10
 	},
 	button: {
 		marginRight: 20
 	},
 	result: {
-		fontSize: 20,
-		marginTop: 20
+		fontSize: 20
 	}
 });
