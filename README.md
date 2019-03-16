@@ -27,7 +27,7 @@ $ npm run android
 
 ## Screenshot
 
-![](https://imgur.com/Xn5KeoT.png)
+![](screenshot.png)
 
 ### License
 
