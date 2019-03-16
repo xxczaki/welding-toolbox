@@ -4,95 +4,92 @@ import {RkButton, RkText, RkTextInput} from 'react-native-ui-kitten';
 import {Formik} from 'formik';
 
 export default class extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
+		state = {
 			heatInput: ''
 		};
-	}
 
-	render() {
-		return (
-			<Formik
-				initialValues={{
-					amps: '',
-					volts: '',
-					weldingSpeed: '',
-					efficiencyFactor: ''
-				}}
-				onSubmit={values => {
-					Keyboard.dismiss();
+		render() {
+			return (
+				<Formik
+					initialValues={{
+						amps: '',
+						volts: '',
+						weldingSpeed: '',
+						efficiencyFactor: ''
+					}}
+					onSubmit={values => {
+						Keyboard.dismiss();
 
-					const evaluate = () => {
-						const amps = parseInt(values.amps, 10);
-						const volts = parseInt(values.volts, 10);
-						const weldingSpeed = parseInt(values.weldingSpeed, 10);
-						const efficiencyFactor = parseFloat(values.efficiencyFactor.replace(/,/g, '.'));
+						const evaluate = () => {
+							const amps = parseInt(values.amps, 10);
+							const volts = parseInt(values.volts, 10);
+							const weldingSpeed = parseInt(values.weldingSpeed, 10);
+							const efficiencyFactor = parseFloat(values.efficiencyFactor.replace(/,/g, '.'));
 
-						return (amps * volts * (efficiencyFactor / 10) / weldingSpeed);
-					};
+							return (amps * volts * (efficiencyFactor / 10) / weldingSpeed);
+						};
 
-					const equation = Math.round(evaluate() * 100) / 100;
+						const equation = Math.round(evaluate() * 100) / 100;
 
-					if (isNaN(equation)) {
-						this.setState({heatInput: ''});
-					} else {
-						this.setState({heatInput: equation});
-					}
-				}}
-				onReset={(values, {resetForm}) => {
-					resetForm();
-				}}
-			>
-				{props => (
-					<ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} scrollEnabled={false} keyboardShouldPersistTaps="handled">
-						<RkText style={styles.title}>Heat Input Calculator</RkText>
-						<RkText style={styles.result}>Heat Input: {this.state.heatInput} kJ/mm</RkText>
-						<View style={styles.inputs}>
+						if (isNaN(equation)) {
+							this.setState({heatInput: ''});
+						} else {
+							this.setState({heatInput: equation});
+						}
+					}}
+					onReset={(values, {resetForm}) => {
+						resetForm();
+					}}
+				>
+					{props => (
+						<ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} scrollEnabled={false} keyboardShouldPersistTaps="handled">
+							<RkText style={styles.title}>Heat Input Calculator</RkText>
+							<RkText style={styles.result}>Heat Input: {this.state.heatInput} kJ/mm</RkText>
+							<View style={styles.inputs}>
+								<RkTextInput
+									style={{marginRight: 10}}
+									keyboardType="numeric"
+									placeholder="Amps"
+									value={props.values.amps}
+									maxLength={10}
+									onChangeText={props.handleChange('amps')}
+									onBlur={props.handleBlur('amps')}
+								/>
+								<RkTextInput
+									style={{marginLeft: 10}}
+									keyboardType="numeric"
+									placeholder="Volts"
+									value={props.values.volts}
+									maxLength={10}
+									onChangeText={props.handleChange('volts')}
+									onBlur={props.handleBlur('volts')}
+								/>
+							</View>
 							<RkTextInput
-								style={{marginRight: 10}}
 								keyboardType="numeric"
-								placeholder="Amps"
-								value={props.values.amps}
+								placeholder="Welding Speed (mm/min)"
+								value={props.values.weldingSpeed}
 								maxLength={10}
-								onChangeText={props.handleChange('amps')}
-								onBlur={props.handleBlur('amps')}
+								onChangeText={props.handleChange('weldingSpeed')}
+								onBlur={props.handleBlur('weldingSpeed')}
 							/>
 							<RkTextInput
-								style={{marginLeft: 10}}
 								keyboardType="numeric"
-								placeholder="Volts"
-								value={props.values.volts}
-								maxLength={10}
-								onChangeText={props.handleChange('volts')}
-								onBlur={props.handleBlur('volts')}
+								placeholder="Efficiency Factor"
+								value={props.values.efficiencyFactor}
+								maxLength={3}
+								onChangeText={props.handleChange('efficiencyFactor')}
+								onBlur={props.handleBlur('efficiencyFactor')}
 							/>
-						</View>
-						<RkTextInput
-							keyboardType="numeric"
-							placeholder="Welding Speed (mm/min)"
-							value={props.values.weldingSpeed}
-							maxLength={10}
-							onChangeText={props.handleChange('weldingSpeed')}
-							onBlur={props.handleBlur('weldingSpeed')}
-						/>
-						<RkTextInput
-							keyboardType="numeric"
-							placeholder="Efficiency Factor"
-							value={props.values.efficiencyFactor}
-							maxLength={3}
-							onChangeText={props.handleChange('efficiencyFactor')}
-							onBlur={props.handleBlur('efficiencyFactor')}
-						/>
-						<View style={styles.inline}>
-							<RkButton style={styles.button} onPress={props.handleSubmit}>Calculate</RkButton>
-							<RkButton rkType="danger" onPress={props.handleReset}>Reset</RkButton>
-						</View>
-					</ScrollView>
-				)}
-			</Formik>
-		);
-	}
+							<View style={styles.inline}>
+								<RkButton style={styles.button} onPress={props.handleSubmit}>Calculate</RkButton>
+								<RkButton rkType="danger" onPress={props.handleReset}>Reset</RkButton>
+							</View>
+						</ScrollView>
+					)}
+				</Formik>
+			);
+		}
 }
 
 const styles = StyleSheet.create({
