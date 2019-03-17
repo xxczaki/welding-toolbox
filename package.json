@@ -1,7 +1,7 @@
 {
-  "name": "welding-heat-input-app",
-  "version": "1.0.1",
-  "description": "Really simple welding heat input calculator app, written in React Native",
+  "name": "welding-toolbox",
+  "version": "1.0.2",
+  "description": "An app containing a set of useful welding tools",
   "author": {
     "name": "Antoni Kepinski",
     "email": "a@kepinski.me",
@@ -16,11 +16,13 @@
     "test": "xo"
   },
   "dependencies": {
+    "@expo/vector-icons": "^10.0.0",
     "expo": "^32.0.6",
     "formik": "^1.5.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
-    "react-native-ui-kitten": "^3.1.2"
+    "react-native-ui-kitten": "^3.1.2",
+    "react-navigation": "^3.4.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
