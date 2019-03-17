@@ -1,16 +1,17 @@
-# Welding Heat Input Calculator 🛠️
+# Welding Toolbox 🛠️
 
-> Really simple welding heat input calculator app, written in React Native ⚛️
+> An app containing a set of useful welding tools, written in React Native ⚛️
 
 ## Installation
 
 Currently, only the Android version is available.
 
+NOTE: currently not available 
 [![Google Play Download][google-play-badge]][google-play-download]
 
 or
 
-[Download latest release](https://github.com/xxczaki/welding-heat-input-calculator/releases/latest)
+[Download latest release](https://github.com/xxczaki/welding-toolbox/releases/latest)
 
 ## Usage
 
@@ -27,11 +28,11 @@ $ npm run android
 
 ## Screenshot
 
-![](screenshot.png)
+![](app.png)
 
 ### License
 
 MIT
 
 [google-play-badge]: https://play.google.com/intl/en_us/badges/images/badge_new.png
-[google-play-download]: https://play.google.com/store/apps/details?id=com.kepinski.weldingheatinputcalculator
+[google-play-download]: https://kepinski.me
