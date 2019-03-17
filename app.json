@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Welding Heat Input Calculator",
-    "slug": "welding-heat-input-calculator",
+    "name": "Welding Toolbox",
+    "slug": "welding-toolbox",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -22,7 +22,7 @@
       "**/*"
     ],
     "android": {
-      "package": "com.kepinski.weldingheatinputcalculator",
+      "package": "com.kepinski.weldingtoolbox",
       "versionCode": 2,
       "googleServicesFile": "google-services.json"
     }
