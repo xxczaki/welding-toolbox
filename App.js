@@ -3,13 +3,13 @@ import {createBottomTabNavigator, createAppContainer} from 'react-navigation';
 import {Ionicons} from '@expo/vector-icons';
 
 import HeatInput from './components/calculator';
-import Coal from './components/coal';
+import Weldability from './components/weldability';
 import About from './components/about';
 
 const TabNavigator = createBottomTabNavigator(
 	{
 		'Heat Input': HeatInput,
-		Coal,
+		Weldability,
 		About
 	},
 	{
@@ -19,12 +19,12 @@ const TabNavigator = createBottomTabNavigator(
 				let iconName;
 
 				if (routeName === 'Heat Input') {
-					iconName = 'ios-calculator';
+					iconName = 'ios-flame';
 					return <Ionicons name={iconName} size={25} color={tintColor}/>;
 				}
 
-				if (routeName === 'Coal') {
-					iconName = 'ios-flame';
+				if (routeName === 'Weldability') {
+					iconName = 'ios-calculator';
 					return <Ionicons name={iconName} size={25} color={tintColor}/>;
 				}
 
