@@ -21,18 +21,18 @@ class HeatInput extends React.Component {
 						Keyboard.dismiss();
 
 						const evaluate = () => {
-							const amps = parseInt(values.amps, 10);
-							const volts = parseInt(values.volts, 10);
-							const weldingSpeed = parseInt(values.weldingSpeed, 10);
-							const efficiencyFactor = parseFloat(values.efficiencyFactor.replace(/,/g, '.'));
+							const amps = Number(values.amps);
+							const volts = Number(values.volts);
+							const weldingSpeed = Number(values.weldingSpeed);
+							const efficiencyFactor = Number(values.efficiencyFactor.replace(/,/g, '.'));
 
-							return (amps * volts * (efficiencyFactor / 10) / weldingSpeed);
+							return ((volts * amps * efficiencyFactor) / (weldingSpeed / 60));
 						};
 
-						const equation = Math.round(evaluate() * 100) / 100;
+						const equation = Math.round((evaluate() / 1000) * 100) / 100;
 
 						if (isNaN(equation)) {
-							this.setState({heatInput: ''});
+							this.setState({heatInput: '0'});
 						} else {
 							this.setState({heatInput: equation});
 						}
