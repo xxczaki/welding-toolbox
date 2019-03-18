@@ -7,14 +7,9 @@
     "platforms": [
       "android"
     ],
-    "version": "1.0.1",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -23,7 +18,7 @@
     ],
     "android": {
       "package": "com.kepinski.weldingtoolbox",
-      "versionCode": 2,
+      "versionCode": 3,
       "googleServicesFile": "google-services.json"
     }
   }
