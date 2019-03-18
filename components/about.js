@@ -1,10 +1,44 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableHighlight, Image, View, Linking} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, Image, View, Linking} from 'react-native';
+import {AppLoading, Asset} from 'expo';
 
 import pkg from '../package';
 
+function cacheImages(images) {
+	return images.map(image => {
+		if (typeof image === 'string') {
+			return Image.prefetch(image);
+		}
+
+		return Asset.fromModule(image).downloadAsync();
+	});
+}
+
 class About extends React.Component {
+	state = {
+		isReady: false
+	};
+
+	async _loadAssetsAsync() {
+		const imageAssets = cacheImages([
+			require('../assets/icon.png'),
+			require('../assets/patreon.png')
+		]);
+
+		await imageAssets;
+	}
+
 	render() {
+		if (!this.state.isReady) {
+			return (
+				<AppLoading
+					startAsync={this._loadAssetsAsync}
+					onFinish={() => this.setState({isReady: true})}
+					onError={console.warn}
+				/>
+			);
+		}
+
 		return (
 			<View style={styles.container}>
 				<Image style={styles.icon} source={require('../assets/icon.png')}/>
@@ -12,9 +46,9 @@ class About extends React.Component {
 				<Text style={styles.version}>Version {pkg.version}</Text>
 				<Text>MIT License © Antoni Kepinski</Text>
 				<Text style={styles.description}>If you enjoy using this app, please rate it :)</Text>
-				<TouchableHighlight style={styles.link} onPress={() => Linking.openURL('https://patreon.com/akepinski')}>
+				<TouchableOpacity style={styles.link} onPress={() => Linking.openURL('https://patreon.com/akepinski')}>
 					<Image style={styles.patreon} source={require('../assets/patreon.png')}/>
-				</TouchableHighlight>
+				</TouchableOpacity>
 			</View>
 		);
 	}
