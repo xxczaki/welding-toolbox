@@ -7,7 +7,7 @@
     "platforms": [
       "android"
     ],
-    "version": "1.0.3",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "updates": {
@@ -18,7 +18,7 @@
     ],
     "android": {
       "package": "com.kepinski.weldingtoolbox",
-      "versionCode": 3,
+      "versionCode": 4,
       "googleServicesFile": "google-services.json"
     }
   }
