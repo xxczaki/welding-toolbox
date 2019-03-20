@@ -6,11 +6,11 @@ import {Formik} from 'formik';
 
 class Weldability extends React.Component {
 		state = {
-			ceq: '',
-			cet: '',
-			ceAws: '',
-			pcm: '',
-			pren: ''
+			ceq: '0',
+			cet: '0',
+			ceAws: '0',
+			pcm: '0',
+			pren: '0'
 		};
 
 		render() {
@@ -82,10 +82,18 @@ class Weldability extends React.Component {
 					}}
 					onReset={(values, {resetForm}) => {
 						resetForm();
+						this.setState({
+							ceq: '0',
+							cet: '0',
+							ceAws: '0',
+							pcm: '0',
+							pren: '0'
+						});
 					}}
 				>
 					{props => (
 						<ScrollView style={styles.container} scrollEnabled={false} keyboardShouldPersistTaps="handled">
+							<RkText style={styles.title}>Weldability Calculator</RkText>
 							<Grid>
 								<Col style={styles.column1}>
 									<RkTextInput
@@ -203,6 +211,12 @@ class Weldability extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		paddingTop: 50
+	},
+	title: {
+		textAlign: 'center',
+		fontSize: 25,
+		fontWeight: 'bold',
+		marginBottom: 20
 	},
 	input: {
 		width: '50%'
