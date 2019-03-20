@@ -1,20 +1,34 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, Keyboard} from 'react-native';
+import {Clipboard, StyleSheet, View, ScrollView, Keyboard, TouchableOpacity} from 'react-native';
 import {RkButton, RkText, RkTextInput} from 'react-native-ui-kitten';
+import {Dropdown} from 'react-native-material-dropdown';
 import {Formik} from 'formik';
+import sec from 'sec';
 
 class HeatInput extends React.Component {
 		state = {
-			heatInput: ''
+			heatInput: '0'
 		};
 
 		render() {
+			const data = [{
+				label: '0.6 - 141, 15',
+				value: '0.6'
+			}, {
+				label: '0.8 - 111, 114, 131, 135, 136, 138',
+				value: '0.8'
+			}, {
+				label: '1 - 121',
+				value: '1'
+			}];
+
 			return (
 				<Formik
 					initialValues={{
 						amps: '',
 						volts: '',
-						weldingSpeed: '',
+						lenght: '',
+						time: '',
 						efficiencyFactor: ''
 					}}
 					onSubmit={values => {
@@ -23,13 +37,14 @@ class HeatInput extends React.Component {
 						const evaluate = () => {
 							const amps = Number(values.amps);
 							const volts = Number(values.volts);
-							const weldingSpeed = Number(values.weldingSpeed);
+							const lenght = Number(values.lenght);
+							const time = sec(values.time);
 							const efficiencyFactor = Number(values.efficiencyFactor.replace(/,/g, '.'));
 
-							return ((volts * amps * efficiencyFactor) / (weldingSpeed / 60));
+							return ((volts * amps * efficiencyFactor) / (lenght / time * 1000));
 						};
 
-						const equation = Math.round((evaluate() / 1000) * 100) / 100;
+						const equation = Math.round(evaluate() * 100) / 100;
 
 						if (isNaN(equation)) {
 							this.setState({heatInput: '0'});
@@ -39,12 +54,15 @@ class HeatInput extends React.Component {
 					}}
 					onReset={(values, {resetForm}) => {
 						resetForm();
+						this.setState({heatInput: '0'});
 					}}
 				>
 					{props => (
 						<ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} scrollEnabled={false} keyboardShouldPersistTaps="handled">
 							<RkText style={styles.title}>Heat Input Calculator</RkText>
-							<RkText style={styles.result}>Heat Input: {this.state.heatInput} kJ/mm</RkText>
+							<TouchableOpacity onPress={() => Clipboard.setString(`${this.state.heatInput}`)}>
+								<RkText style={styles.result}>Heat Input: {this.state.heatInput} kJ/mm</RkText>
+							</TouchableOpacity>
 							<View style={styles.inputs}>
 								<RkTextInput
 									style={{marginRight: 10}}
@@ -65,21 +83,30 @@ class HeatInput extends React.Component {
 									onBlur={props.handleBlur('volts')}
 								/>
 							</View>
-							<RkTextInput
-								keyboardType="numeric"
-								placeholder="Welding Speed (mm/min)"
-								value={props.values.weldingSpeed}
-								maxLength={10}
-								onChangeText={props.handleChange('weldingSpeed')}
-								onBlur={props.handleBlur('weldingSpeed')}
-							/>
-							<RkTextInput
-								keyboardType="numeric"
-								placeholder="Efficiency Factor"
-								value={props.values.efficiencyFactor}
-								maxLength={3}
+							<View style={styles.inputs}>
+								<RkTextInput
+									style={{marginRight: 10}}
+									keyboardType="numeric"
+									placeholder="Lenght (mm)"
+									value={props.values.lenght}
+									maxLength={10}
+									onChangeText={props.handleChange('lenght')}
+									onBlur={props.handleBlur('lenght')}
+								/>
+								<RkTextInput
+									style={{marginLeft: 10}}
+									placeholder="Time (mm:ss)"
+									value={props.values.time}
+									maxLength={10}
+									onChangeText={props.handleChange('time')}
+									onBlur={props.handleBlur('time')}
+								/>
+							</View>
+							<Dropdown
+								containerStyle={styles.dropdown}
+								label="Efficiency Factor"
+								data={data}
 								onChangeText={props.handleChange('efficiencyFactor')}
-								onBlur={props.handleBlur('efficiencyFactor')}
 							/>
 							<View style={styles.inline}>
 								<RkButton style={styles.button} onPress={props.handleSubmit}>Calculate</RkButton>
@@ -127,6 +154,10 @@ const styles = StyleSheet.create({
 	},
 	result: {
 		fontSize: 20
+	},
+	dropdown: {
+		width: 250,
+		paddingBottom: 20
 	}
 });
 
