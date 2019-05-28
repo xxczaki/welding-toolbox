@@ -1,25 +1,4 @@
 {
-  "expo": {
-    "name": "Welding Toolbox",
-    "slug": "welding-toolbox",
-    "privacy": "public",
-    "sdkVersion": "32.0.0",
-    "platforms": [
-      "android"
-    ],
-    "version": "1.0.4",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "android": {
-      "package": "com.kepinski.weldingtoolbox",
-      "versionCode": 4,
-      "googleServicesFile": "google-services.json"
-    }
-  }
+  "name": "kepinski.weldingtoolbox",
+  "displayName": "Welding Toolbox"
 }

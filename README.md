@@ -18,16 +18,15 @@ or
 # Install dependencies
 $ npm install
 
-# Start the Expo Packages
+# Start the Metro Bundler
 $ npm start
 
-# Build for Android
+# Run for Android
 $ npm run android
+
+# Lint
+$ npm test
 ```
-
-## Screenshot
-
-![](app.png)
 
 ### License
 
