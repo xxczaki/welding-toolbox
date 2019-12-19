@@ -1,4 +1,10 @@
-# Welding Toolbox 🛠️
+# Notice
+
+This app was deprecated in favor of the new [Welding Toolbox 2](https://github.com/xxczaki/welding-toolbox-2/) :unicorn:
+
+---
+
+## Welding Toolbox 🛠️
 
 > An app containing a set of useful welding tools, written in React Native ⚛️
 
